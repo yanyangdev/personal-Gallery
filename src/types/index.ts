@@ -1,9 +1,9 @@
-import type { Artwork } from "../schemas/ArtworkSchema";
+import type { Artwork, GalleryArtworks } from "../schemas/ArtworkSchema";
 
 export type ArtworkContextType = {
-  galleryArtworks: Artwork[];
+  galleryArtworks: GalleryArtworks[];
   searchResults: Artwork[];
-  setGalleryArtworks: (artworks: Artwork[]) => void;
+  setGalleryArtworks: (artworks: GalleryArtworks[]) => void;
   setSearchResults: (artworks: Artwork[]) => void;
   page: number;
   hasMore: boolean;
@@ -12,4 +12,7 @@ export type ArtworkContextType = {
   query: string;
   setQuery: (query: string) => void;
   notFound: boolean;
+  addToGallery: (artwork: Artwork) => void;
+  removeFromGallery: (artwork: Artwork) => void;
+  reset: () => void;
 };

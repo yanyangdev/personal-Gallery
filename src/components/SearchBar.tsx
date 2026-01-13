@@ -11,7 +11,7 @@ const SearchBar = () => {
   return (
     <div>
       <div className="w-2xl mx-auto">
-        <label className="w-full input input-primary m-4">
+        <label className="w-full input input-neutral m-4">
           <span>
             <svg
               width="15px"
@@ -32,7 +32,7 @@ const SearchBar = () => {
           </span>
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search at The Art Institute of Chicago "
             value={query}
             onChange={handleSearch}
           />

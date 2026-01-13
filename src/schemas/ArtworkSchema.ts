@@ -8,7 +8,9 @@ export const ArtworkSchema = z.object({
   image_id: z.string().nullable(),
 });
 export type Artwork = z.infer<typeof ArtworkSchema>;
-
+export type GalleryArtworks = Artwork & {
+  note: string;
+};
 export const SearchResponseSchema = z.object({
   pagination: z.object({
     total: z.number(),

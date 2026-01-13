@@ -13,6 +13,9 @@ export const ArtworkContext = createContext<ArtworkContextType>({
   loadMore: async () => {},
   loading: false,
   notFound: false,
+  addToGallery: () => {},
+  removeFromGallery: () => {},
+  reset: () => {},
 });
 
 export const useArtwork = (): ArtworkContextType => {

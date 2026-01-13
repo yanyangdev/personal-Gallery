@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import type { Artwork } from "../schemas/ArtworkSchema";
+import type { Artwork, GalleryArtworks } from "../schemas/ArtworkSchema";
 import { ArtworkContext } from "./ArtworkContext";
 import { searchArtworks } from "../data/search";
 
 type ProviderProps = {
   children: React.ReactNode;
 };
-const loadGalleryFromLocalStorage = (): Artwork[] => {
-  const storedArtworks = localStorage.getItem("artworks");
+const loadGalleryFromLocalStorage = (): GalleryArtworks[] => {
+  const storedArtworks = localStorage.getItem("gallery-artworks");
   return storedArtworks ? JSON.parse(storedArtworks) : [];
 };
 
-const INITIAL_LIMIT = 15;
+const INITIAL_LIMIT = 6;
 
 const ArtworkProvider = ({ children }: ProviderProps) => {
-  const [galleryArtworks, setGalleryArtworks] = useState<Artwork[]>(
+  const [galleryArtworks, setGalleryArtworks] = useState<GalleryArtworks[]>(
     loadGalleryFromLocalStorage()
   );
   const [searchResults, setSearchResults] = useState<Artwork[]>([]);
@@ -23,6 +23,18 @@ const ArtworkProvider = ({ children }: ProviderProps) => {
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
+
+  const addToGallery = (artwork: Artwork) => {
+    const favorites = [...galleryArtworks, { ...artwork, note: "" }];
+    setGalleryArtworks(favorites);
+    localStorage.setItem("gallery-artworks", JSON.stringify(favorites));
+  };
+  const removeFromGallery = (artwork: Artwork) => {
+    const favorites = galleryArtworks.filter((a) => a.id !== artwork.id);
+    setGalleryArtworks(favorites);
+    localStorage.setItem("gallery-artworks", JSON.stringify(favorites));
+  };
+
   const loadMore = async () => {
     if (!hasMore || loading) return;
     const controller = new AbortController();
@@ -94,6 +106,15 @@ const ArtworkProvider = ({ children }: ProviderProps) => {
       controller.abort();
     };
   }, [query, setSearchResults]);
+
+  const reset = () => {
+    setQuery("");
+    setSearchResults([]);
+    setPage(1);
+    setHasMore(false);
+    setLoading(false);
+    setNotFound(false);
+  };
   return (
     <ArtworkContext.Provider
       value={{
@@ -109,6 +130,10 @@ const ArtworkProvider = ({ children }: ProviderProps) => {
         loadMore,
         loading,
         notFound,
+
+        addToGallery,
+        removeFromGallery,
+        reset,
       }}
     >
       {children}
