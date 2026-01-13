@@ -10,34 +10,23 @@ import {
 type SearchProps = {
   q: string;
   limit: number;
-  offset: number;
+  page: number;
 };
 export async function searchArtworks(
   params: SearchProps,
   controller: AbortController
 ): Promise<SearchResponse> {
-  const searchURL = `https://api.artic.edu/api/v1/artworks/search`;
+  const { q, limit, page } = params;
+  const searchURL =
+    `https://api.artic.edu/api/v1/artworks/search` +
+    `?q=${encodeURIComponent(q)}` +
+    `&limit=${limit}` +
+    `&page=${page}` +
+    `&fields=id,title,artist_title,artist_titles,artist_id,image_id`;
 
   try {
     const searchRes = await fetch(searchURL, {
       signal: controller.signal,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        q: params.q,
-        limit: params.limit,
-        offset: params.offset,
-        fields: [
-          "id",
-          "title",
-          "artist_title",
-          "artist_titles",
-          "artist_id",
-          "image_id",
-        ],
-      }),
     });
     if (!searchRes.ok) {
       throw new Error("Search failed");

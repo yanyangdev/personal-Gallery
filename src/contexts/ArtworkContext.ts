@@ -6,6 +6,13 @@ export const ArtworkContext = createContext<ArtworkContextType>({
   searchResults: [],
   setGalleryArtworks: () => {},
   setSearchResults: () => {},
+  query: "",
+  setQuery: () => {},
+  page: 1,
+  hasMore: false,
+  loadMore: async () => {},
+  loading: false,
+  notFound: false,
 });
 
 export const useArtwork = (): ArtworkContextType => {
