@@ -23,7 +23,7 @@ const ArtworkCard = (artwork: Artwork) => {
   };
 
   return (
-    <div className="card flex flex-col justify-center items-center bg-gray-700 rounded-xl">
+    <div className="card flex flex-col justify-center items-center bg-gray-700 rounded-xl bo">
       <figure className="h-55 w-full">
         <img className="object-contain h-full p-2" src={imageUrl} alt={title} />
       </figure>
@@ -33,11 +33,11 @@ const ArtworkCard = (artwork: Artwork) => {
             <div className="tooltip-content">
               {isInGallery ? (
                 <div className="animate-bounce text-green-300 -rotate-2 text-md font-semibold">
-                  remove from gallery!
+                  remove
                 </div>
               ) : (
                 <div className="animate-bounce text-orange-300 -rotate-2 text-md font-semibold">
-                  Add to gallery!
+                  Add
                 </div>
               )}
             </div>

@@ -30,11 +30,11 @@ const MyGallery = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4">
         {galleryArtworks?.map((artwork) => (
           <div
-            className=" bg-gray-700 rounded-xl text-white p-4"
+            className=" bg-blue-950 rounded-xl text-white p-4"
             key={artwork.id}
           >
             <ArtworkCard key={artwork.id} {...artwork} />
-            <div className="w-full flex flex-col gap-2 mt-2">
+            <div className="w-full flex flex-col gap-2 mt-4">
               <div className="flex justify-between items-center">
                 <p className="text-xl font-bold">personal note:</p>
                 {isEditingId == artwork.id ? (
